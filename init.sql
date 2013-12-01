@@ -1,0 +1,12 @@
+create table car(CANO int, CAMNF varchar(30), CAMOD varchar(30), CAMAK varchar(30), CAMKY varchar(4), constraint  c_car_key  primary key(CANO), constraint c_car_uni unique(CAMNF, CAMOD, CAMAK, CAMKY));
+create table caf(CAFNO number(8) primary key, CAFNAM varchar(30), CAFDSP varchar(200));
+Insert into caf values('1','color','car display');
+Insert into caf values('2','speed','car performance');
+Insert into caf values('3','safe','car security');
+Insert into caf values('4','big','car volume');
+Insert into caf values('5','cheap','car price');
+Insert into caf values('6','robust','car life');
+create table CFR(CFRCID int, CFRFID number(8), CFRHAS number(1), constraint p_cfr_pk primary key(CFRCID, CFRFID));
+create table MEM(MEMNAM varchar(30) primary key, MEMAGE number(8), MEMGND varchar(10), MEMCTY varchar(30), MEMSTA varchar(30), MEMEML varchar(30) unique, constraint p_mem_chk_age check(MEMAGE between 1 and 150), constraint p_mem_chk_sex check(MEMGND in('Male', 'Female')));
+create table REW (RVID int unique, RVCID int, RVMNA varchar(30), RVODR varchar(80), RVTIM date, RVDSP varchar(200), constraint p_rew_uni unique(RVCID, RVMNA), constraint p_rew_f_cid foreign key(RVCID) references CAR(CANO), constraint p_rew_f_name foreign key(RVMNA) references MEM(MEMNAM));
+create table RVR(RRRID int, RRMNA varchar(30), RRDSP varchar(30), constraint p_rvr_key primary key(RRRID, RRMNA), constraint p_rr_f_rid foreign key(RRRID) references REW(RVID), constraint p_rr_f_nam foreign key(RRMNA) references  MEM(MEMNAM));
